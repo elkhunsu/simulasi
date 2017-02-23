@@ -8,11 +8,12 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
+    'defaultRoute' => 'site/index',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
-//            'baseUrl' => $baseUrl,
+            'baseUrl' => '/basic/web',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'lPitsze0"XwH37[z_0"0T}|8W72)Q)',
         ],
@@ -43,9 +44,10 @@ $config = [
             ],
         ],
         'urlManager' => [
-//            'baseUrl' => $baseUrl,
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+//            'enableStrictParsing' => true,
             'rules' => array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

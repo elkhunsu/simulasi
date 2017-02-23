@@ -23,7 +23,7 @@ $this->beginPage()
     <body>
 <?php $this->beginBody() ?>
 
-        <div class="site-about">
+        <div class="site-simulasi">
             <h1><?= Html::encode($this->title) ?></h1>
 
             <p>
