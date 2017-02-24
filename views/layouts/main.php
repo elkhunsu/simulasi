@@ -26,42 +26,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    //<?php
-    echo Tabs::widget([
-    'items' => [
-        [
-            'label' => 'One',
-            'content' => 'Anim pariatur cliche...',
-            'active' => true
-        ],
-        [
-            'label' => 'Two',
-            'content' => 'Anim pariatur cliche...',
-        ],
-        [
-            'label' => 'Example',
-            'url' => 'http://www.example.com',
-        ],
-        [
-            'label' => 'Dropdown',
-            'items' => [
-                 [
-                     'label' => 'DropdownA',
-                     'content' => 'DropdownA, Anim pariatur cliche...',
-                 ],
-                 [
-                     'label' => 'DropdownB',
-                     'content' => 'DropdownB, Anim pariatur cliche...',
-                 ],
-                 [
-                     'label' => 'External Link',
-                     'url' => 'http://www.example.com',
-                 ],
-            ],
-        ],
-    ],
-]);
-
+    <?php
 //    NavBar::begin([
 //        'brandLabel' => 'My Company',
 //        'brandUrl' => Yii::$app->homeUrl,
