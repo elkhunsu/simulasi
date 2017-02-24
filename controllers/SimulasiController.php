@@ -28,7 +28,7 @@ class SimulasiController extends \yii\base\Controller {
     }
 
     public function actionIndex() {
-        return $this->render('index');
+        return $this->renderPartial('index');
     }
 
     public function actionHitung() {

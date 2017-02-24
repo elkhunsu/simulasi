@@ -2,7 +2,13 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
+AppAsset::register($this);
+
 
 $this->title = 'Simulasi Kredit';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,9 +27,9 @@ $this->beginPage()
         <?php $this->head() ?>
     </head>
     <body>
-<?php $this->beginBody() ?>
+        <?php $this->beginBody() ?>
 
-        <div class="site-simulasi">
+        <div class="site-m ">
             <h1><?= Html::encode($this->title) ?></h1>
 
             <p>
@@ -72,7 +78,7 @@ $this->beginPage()
 
         </div>
 
-<?php $this->endBody() ?>
+        <?php $this->endBody() ?>
     </body>
 </html>
 <?php $this->endPage() ?>
