@@ -28,7 +28,7 @@ class SimulasiController extends \yii\base\Controller {
     }
 
     public function actionIndex() {
-        $motor = '';
+//        $motor = '';
         return $this->renderPartial('index');
     }
 

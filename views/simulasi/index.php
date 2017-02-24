@@ -79,29 +79,31 @@ $this->title = 'Simulasi Pinjaman';
                 </div>
                 <div id="motor" class="tab-pane fade">
                     </br>
-                    <div class="form-group">
-                        <label for="pinjaman">Jumlah Pinjaman *</label><br>
-                        <input type="number" class="form-control" id="fundMotor" placeholder="Jumlah Pinjaman" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tenor">Tenor *</label><br>
-                        <select id="tenorMotor" class="form-control" placeholder="Tenor">
-                            <option value="5">5 Bulan
-                            <option value="6">6 Bulan
-                            <option value="11">11 Bulan
-                            <option value="12">12 Bulan
-                            <option value="17">17 Bulan
-                            <option value="18">18 Bulan
-                            <option value="23">23 Bulan
-                            <option value="24">24 Bulan
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="angsuranMotor">Angsuran *</label><br>
-                        <input class="form-control" id="angsur" type="text" placeholder="Angsuran" disabled>
-                    </div>
-                    <button onclick="motorFunction()">Hitung Angsuran</button>
-
+                    <form id="motor">
+                        <div class="form-group">
+                            <label for="pinjaman">Jumlah Pinjaman *</label><br>
+                            <input type="number" class="form-control" id="fundMotor" placeholder="Jumlah Pinjaman" required>
+                            <span id="errfn"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="tenor">Tenor *</label><br>
+                            <select id="tenorMotor" class="form-control" placeholder="Tenor">
+                                <option value="5">5 Bulan
+                                <option value="6">6 Bulan
+                                <option value="11">11 Bulan
+                                <option value="12">12 Bulan
+                                <option value="17">17 Bulan
+                                <option value="18">18 Bulan
+                                <option value="23">23 Bulan
+                                <option value="24">24 Bulan
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="angsuranMotor">Angsuran *</label><br>
+                            <input class="form-control" id="angsur" type="text" placeholder="Angsuran" disabled>
+                        </div>
+                        <button type="submit" onclick="motorFunction()">Hitung Angsuran</button>
+                    </form>
                 </div>
 
             </div>
@@ -154,4 +156,33 @@ $this->title = 'Simulasi Pinjaman';
             }
         });
     }
+
+
+    $(document).ready(function () {
+
+        $('#contact-form').validate({
+            rules: {
+                name: {
+                    minlength: 2,
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                message: {
+                    minlength: 2,
+                    required: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.control-group').removeClass('success').addClass('error');
+            },
+            success: function (element) {
+                element.text('OK!').addClass('valid')
+                        .closest('.control-group').removeClass('error').addClass('success');
+            }
+        });
+
+    });
 </script>
