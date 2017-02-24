@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -13,6 +12,10 @@ $this->title = 'My Yii Application';
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
+                     <ul class="nav nav-tabs">
+                <li class="active"><a href="#mobil">Mobil</a></li>
+                <li><a href="#motor">Motor</a></li>
+            </ul>
 
     <div class="body-content">
 

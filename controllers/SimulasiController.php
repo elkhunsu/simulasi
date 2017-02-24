@@ -28,6 +28,7 @@ class SimulasiController extends \yii\base\Controller {
     }
 
     public function actionIndex() {
+        $motor = '';
         return $this->renderPartial('index');
     }
 
@@ -61,19 +62,52 @@ class SimulasiController extends \yii\base\Controller {
                  */
                 $pmt = $this->PMT(21 / 1200, $tenor, -$ntf);
                 $result = round($pmt, -2);
+                $result = 'Rp. ' . number_format($result);
+
                 return [
-                    'fidusia' => $fidusia,
-                    'provisi' => $provisi,
-                    'biayaAdmin' => $biayaAdmin,
-                    'asuransiKend' => $asuransiKend,
-                    'asuransiJiwa' => $asuransiJiwa,
-                    'totalAdmin' => $totalAdmin,
-                    'ntf' => $ntf,
+//                    'fidusia' => $fidusia,
+//                    'provisi' => $provisi,
+//                    'biayaAdmin' => $biayaAdmin,
+//                    'asuransiKend' => $asuransiKend,
+//                    'asuransiJiwa' => $asuransiJiwa,
+//                    'totalAdmin' => $totalAdmin,
+//                    'ntf' => $ntf,
                     'data' => $result,
                 ];
             }
         } else {
             return false;
+        }
+    }
+
+    public function actionHitungmotor() {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax) {
+            $data = Yii::$app->request->post();
+            if (isset($data)) {
+                $funding = $data['funding'];
+                $bulan = $data['tenor'];
+                $tenor = $this->tenorAlt($bulan);
+                $admin = $this->adminMotor($funding, $tenor);
+                $rateProvisi = $this->rateProvisiMotor($tenor);
+                $effRate = $this->rateEffMotor($funding, $tenor);
+
+                /*
+                 * NTF
+                 */
+                $ntf = ($funding + 175000 + $admin);
+                $hasilNtf = round(($ntf / $rateProvisi) * 100);
+
+                /*
+                 * hasil
+                 */
+                $pmt = $this->PMT($effRate / 1200, $bulan, -$hasilNtf);
+                $result = round($pmt, -2);
+                $result = 'Rp. ' . number_format($result);
+                return $result;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -133,6 +167,62 @@ class SimulasiController extends \yii\base\Controller {
             return $cekHarga;
         } else {
             return false;
+        }
+    }
+
+    private function adminMotor($param, $tenor) {
+        if (isset($param) && isset($tenor)) {
+            $array = [
+                    [585, 435, 485, 0],
+                    [585, 485, 535, 585],
+                    [635, 635, 685, 735],
+            ];
+            if (($param == 1000000 && $param <= 2500000)) {
+                return $array[0][$tenor];
+            } else if ($param > 2500000 && $param <= 5000000) {
+                return $array[1][$tenor];
+            } else if ($param > 5000000) {
+                return $array[2][$tenor];
+            }
+        }
+    }
+
+    private function rateProvisiMotor($tenor) {
+        if ($tenor == 0) {
+            return 99;
+        } else if ($tenor == 1) {
+            return 98;
+        } else if ($tenor == 2) {
+            return 97;
+        } else if ($tenor == 3) {
+            return 96;
+        }
+    }
+
+    private function rateEffMotor($fund, $tenor) {
+        $array = [
+                [53.2, 51.6, 52, 0],
+                [53.2, 46.3, 46.7, 47.2],
+                [53.2, 45.25, 45.8, 46.2]
+        ];
+        if ($fund <= 2500000) {
+            return $array[0][$tenor];
+        } else if ($fund > 2500000 && $fund <= 5000000) {
+            return $array[1][$tenor];
+        } else if ($fund > 5000000) {
+            return $array[2][$tenor];
+        }
+    }
+
+    private function tenorAlt($bulan) {
+        if ($bulan == 5 || $bulan == 6) {
+            return 0;
+        } else if ($bulan == 11 || $bulan == 12) {
+            return 1;
+        } else if ($bulan == 17 || $bulan == 18) {
+            return 2;
+        } else if ($bulan == 23 || $bulan == 24) {
+            return 3;
         }
     }
 
