@@ -1,20 +1,21 @@
 <?php
 
-use \yii\web\Request;
+//use \yii\web\Request;
+//
+//$baseUrl = str_replace('/basic/web', '', (new Request)->getBaseUrl());
+//
 
-$baseUrl = str_replace('/basic/web', '', (new Request)->getBaseUrl());
+use common\components\Request;
 
 $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
-    'defaultRoute' => 'site/index',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
         'request' => [
-            'baseUrl' => '/basic/web',
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+// !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'lPitsze0"XwH37[z_0"0T}|8W72)Q)',
         ],
         'cache' => [
@@ -30,8 +31,8 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
+// 'useFileTransport' to false and configure a transport
+// for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
