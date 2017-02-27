@@ -26,10 +26,10 @@ $this->title = 'Simulasi Pinjaman';
             .frame-area {
                 display: block;
                 width: 100%;  /* RESPONSIVE WIDTH */
-                max-width: 400px;
+                max-width: 480px;
                 height: 470px;
                 overflow: auto;  /* EDIT TO hidden FOR NO SCROLLBAR */
-                border: #999999 1px solid;
+                border: #999999 0px solid;
                 margin: 0px;
                 padding: 0px;
             }
