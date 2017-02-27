@@ -21,26 +21,35 @@ $this->title = 'Simulasi Pinjaman';
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <?php $this->head(); ?>
+
+        <style type="text/css">
+            .frame-area {
+                display: block;
+                width: 100%;  /* RESPONSIVE WIDTH */
+                max-width: 400px;
+                height: 470px;
+                overflow: auto;  /* EDIT TO hidden FOR NO SCROLLBAR */
+                border: #999999 1px solid;
+                margin: 0px;
+                padding: 0px;
+            }
+
+        </style>
     </head>
     <body>
         <?php $this->beginBody(); ?>
-        <div class="site-index">
-            <h1><?= Html::encode($this->title) ?></h1>
-            <p>
-                This is the Simulation page. You may modify the following file to customize its content:
-            </p>
-        </div>
-        <div class="container">
+        <div class="frame-area">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#mobil">Mobil</a></li>
                 <li><a href="#motor">Motor</a></li>
             </ul>
+
             <div class="tab-content">
 
                 <div id="mobil" class="tab-pane fade in active">
                     <!--                    <form>-->
                     </br>
-                    <h4>Mobil</h4>
+                    <!--<h4>Mobil</h4>-->
 
                     <div class="form-group">
                         <label for="harga">Harga Kendaraan OTR **</label><br>
