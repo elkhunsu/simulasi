@@ -10,13 +10,14 @@ namespace app\controllers;
 
 use Yii;
 use app\models\MobilForm;
+use app\models\MotorForm;
 
 /**
  * Description of SimulasiController
  *
  * @author elkinpk
  */
-class SimulasiController extends \yii\base\Controller {
+class SimulasibetaController extends \yii\base\Controller {
 
     public function beforeAction($action) {
         if (isset(Yii::$app->request->csrfTokenFromHeader)) {
@@ -37,15 +38,34 @@ class SimulasiController extends \yii\base\Controller {
     }
 
     public function actionIndex() {
-        return $this->renderPartial('simulasi');
+        $model = new \app\models\MobilForm();
+        $tahun = [
+            '2017' => '2017',
+            '2016' => '2016',
+            '2015' => '2015',
+            '2014' => '2014',
+            '2013' => '2013',
+            '2012' => '2012',
+        ];
+        $tenor = [
+            '12' => '1 Tahun',
+            '24' => '2 Tahun',
+            '36' => '3 Tahun',
+            '48' => '4 Tahun'
+        ];
+        return $this->render('mobil', ['model' => $model, 'tahun' => $tahun, 'tenor' => $tenor]);
     }
 
     public function actionMotor() {
-        return $this->render('motor');
+        $model = new MotorForm();
+        $tenor = [
+            0 => ['5 Bulan', '6 Bulan']
+        ];
+        return $this->render('motor', ['model' => $model, 'tenor' => $tenor]);
     }
 
     public function actionHitung() {
-        $model = new MobilForm();
+//        $model = new MobilForm();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         if (Yii::$app->request->isAjax) {
             $data = Yii::$app->request->post();

@@ -116,4 +116,12 @@ class SiteController extends Controller {
         return $this->render('about');
     }
 
+    public function actionTime() {
+        return $this->render('time-date', ['response' => date('H:i:s')]);
+    }
+
+    public function actionDate() {
+        return $this->render('time-date', ['response' => date('Y-M-d')]);
+    }
+
 }

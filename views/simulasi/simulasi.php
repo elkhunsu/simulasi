@@ -20,6 +20,8 @@ $this->title = 'Simulasi Pinjaman';
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+
         <?php $this->head(); ?>
 
         <style type="text/css">
@@ -50,10 +52,14 @@ $this->title = 'Simulasi Pinjaman';
                     <!--                    <form>-->
                     </br>
                     <!--<h4>Mobil</h4>-->
+                    <?= Html::csrfMetaTags() ?>
 
                     <div class="form-group">
                         <label for="harga">Harga Kendaraan OTR **</label><br>
-                        <input id="harga" type="number" min="5000000" max="1000000000" class="form-control" placeholder="Harga Kendaraan OTR">
+                        <div class="input-group">
+                            <div class="input-group-addon">Rp.</div>
+                            <input id="harga" type="number" min="5" max="10" pattern="[0-9]" value="100000000" class="form-control" placeholder="Harga Kendaraan OTR">
+                        </div>
                     </div>
                     <div class="form-group">
 
@@ -78,7 +84,10 @@ $this->title = 'Simulasi Pinjaman';
                     </div>
                     <div class="form-group">
                         <label for="funding">Jumlah Pinjaman *</label><br>
-                        <input type="number" class="form-control" id="funding" placeholder="Jumlah Pinjaman">
+                        <div class="input-group">
+                            <div class="input-group-addon">Rp. </div>
+                            <input type="number" class="form-control" id="funding" value="50000000" placeholder="Jumlah Pinjaman">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="angsuran">Angsuran *</label><br>
@@ -91,8 +100,11 @@ $this->title = 'Simulasi Pinjaman';
                     <form id="motor">
                         <div class="form-group">
                             <label for="pinjaman">Jumlah Pinjaman *</label><br>
-                            <input type="number" class="form-control" id="fundMotor" placeholder="Jumlah Pinjaman" required>
-                            <span id="errfn"></span>
+                            <div class="input-group">
+                                <div class="input-group-addon">Rp. </div>
+                                <input type="number" class="form-control" id="fundMotor" value="10000000" placeholder="Jumlah Pinjaman" required>
+                                <span id="errfn"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="tenor">Tenor *</label><br>
@@ -136,6 +148,8 @@ $this->title = 'Simulasi Pinjaman';
         });
     });
 
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
     function mobilFunction() {
         $.ajax({
             url: '<?php echo Yii::$app->request->baseUrl . '/simulasi/hitung' ?>',
@@ -145,6 +159,7 @@ $this->title = 'Simulasi Pinjaman';
                 tahun: $("#tahun").val(),
                 tenor: $("#tenor").val(),
                 funding: $("#funding").val(),
+                _csrf: csrfToken,
             },
             success: function (data) {
                 $("#angsuran").val(data.data);

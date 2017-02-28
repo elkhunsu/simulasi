@@ -11,19 +11,23 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class MotorForm extends Model {
+class MobilForm extends Model {
 
     public $verifyCode;
-    public $jumlah;
+    public $otr;
+    public $tahun;
     public $tenor;
+    public $jumlah;
+    public $angsuran;
+    public $hasil;
 
     /**
      * @return array the validation rules.
      */
     public function rules() {
         return [
-                [['tenor', 'jumlah'], 'required'],
-                [['tenor', 'jumlah'], 'number'],
+                [['otr', 'tahun', 'tenor', 'jumlah'], 'required'],
+                [['otr', 'tahun', 'tenor', 'jumlah'], 'number'],
                 [['verifyCode'], 'captcha'],
         ];
     }
@@ -34,6 +38,8 @@ class MotorForm extends Model {
     public function attributeLabels() {
         return [
             'captcha' => 'Verification Code',
+            'otr' => 'Harga Kendaraan OTR *',
+            'tahun' => 'Tahun Kendaraan *',
             'tenor' => 'Tenor *',
             'jumlah' => 'Jumlah Pinjaman *',
         ];

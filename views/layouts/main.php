@@ -1,80 +1,71 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
+/* @var $this yii\web\View */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use app\assets\BootstrapPluginAsset;
+use yii\widgets\Pjax;
+use yii\captcha\Captcha;
 
 AppAsset::register($this);
+BootstrapPluginAsset::register($this);
 ?>
-<?php $this->beginPage() ?>
+
+<?php
+$this->beginPage();
+?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>  
+        <title><?= Html::encode('Simulasi') ?></title>
 
-<div class="wrap">
-    <?php
-//    NavBar::begin([
-//        'brandLabel' => 'My Company',
-//        'brandUrl' => Yii::$app->homeUrl,
-//        'options' => [
-//            'class' => 'navbar-inverse navbar-fixed-top',
-//        ],
-//    ]);
-//    echo Nav::widget([
-//        'options' => ['class' => 'navbar-nav navbar-right'],
-//        'items' => [
-//            ['label' => 'Home', 'url' => ['/site/index']],
-//            ['label' => 'About', 'url' => ['/site/about']],
-//            ['label' => 'Simulasi', 'url' => ['/simulasi']],
-//            ['label' => 'Contact', 'url' => ['/site/contact']],
-//            Yii::$app->user->isGuest ? (
-//                ['label' => 'Login', 'url' => ['/site/login']]
-//            ) : (
-//                '<li>'
-//                . Html::beginForm(['/site/logout'], 'post')
-//                . Html::submitButton(
-//                    'Logout (' . Yii::$app->user->identity->username . ')',
-//                    ['class' => 'btn btn-link logout']
-//                )
-//                . Html::endForm()
-//                . '</li>'
-//            )
-//        ],
-//    ]);
-//    NavBar::end();
-//    ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
-    </div>
-</div>
+        <?php $this->head(); ?>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+<!--        <style type="text/css">
+            .frame-area {
+                display: block;
+                width: 100%;  /* RESPONSIVE WIDTH */
+                max-width: 480px;
+                height: 470px;
+                overflow: auto;  /* EDIT TO hidden FOR NO SCROLLBAR */
+                border: #999999 0px solid;
+                margin: 0px;
+                padding: 0px;
+            }
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
-<?php $this->endBody() ?>
-</body>
+        </style>-->
+    </head>
+    <body>
+        <?php $this->beginBody(); ?>
+        <div class="frame-area">
+            <?php Pjax::begin(); ?>
+            <ul class="nav nav-tabs">
+                <li><?= Html::a("Mobil", ['simulasibeta/']) ?></li>
+                <li><?= Html::a("Motor", ['simulasibeta/motor']) ?></li>
+            </ul>
+            <?= $content ?>
+            <?php Pjax::end(); ?>
+        </div>
+        <?php $this->endBody() ?>
+    </body>
 </html>
 <?php $this->endPage() ?>
+
+<script>
+    $(document).ready(function () {
+        $(".nav-tabs a").click(function () {
+            $(this).tab('show');
+        });
+        $('.nav-tabs a').on('shown.bs.tab', function (event) {
+            var x = $(event.target).text();         // active tab
+            var y = $(event.relatedTarget).text();  // previous tab
+            $(".act span").text(x);
+            $(".prev span").text(y);
+        });
+    });
+</script>
